@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import url,include
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/v1/',include('book.urls')),
+    url(r'^api/v1/book/',include('book.urls')),
+    url(r'^api/v1/review/',include('review.api.urls')),
     url(r'^api/auth/',include('accounts.api.urls')),
 ]

@@ -12,4 +12,5 @@ class Book(models.Model):
 	genre = models.CharField(choices=GENRE_CHOICES,max_length=100,default='Sci-Fi')
 	
 	def __str__(self):
-		return str(self.author)
+		return str(self.author+' - '+self.title)
+
