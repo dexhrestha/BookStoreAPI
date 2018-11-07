@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/v1/book/',include('book.urls')),
     url(r'^api/v1/review/',include('review.api.urls')),
+    url(r'^api/v1/comment/',include('comment.api.urls')),
     url(r'^api/auth/',include('accounts.api.urls')),
 ]

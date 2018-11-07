@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 from book.models import Book
-from book.serializers import BookSerializer	
+from book.serializers import BookListSerializer,BookDetailSerializer	
 from rest_framework import permissions,authentication,generics,mixins
 from django.contrib.auth.models import User
 from rest_framework.response import Response
@@ -11,7 +11,7 @@ from rest_framework.filters import OrderingFilter,SearchFilter
 class BookListAPIView(generics.ListAPIView,mixins.CreateModelMixin):
 	#This view set automatically provides list,create,retrieve,update and destroy actions
 	queryset = Book.objects.all()
-	serializer_class =  BookSerializer
+	serializer_class =  BookListSerializer
 	permission_classes = (IsAdminUserOrReadOnly,)
 	filter_backends = (filters.DjangoFilterBackend,SearchFilter)
 	# filterset_class = BookFilter
@@ -30,7 +30,7 @@ class BookDetailAPIView(mixins.UpdateModelMixin,
 	permission_classes = (IsAdminUserOrReadOnly,)
 	queryset = Book.objects.all()
 	lookup_field = 'id'
-	serializer_class = BookSerializer
+	serializer_class = BookDetailSerializer
 
 	def put(self,request,*args,**kwargs):
 		return self.update(request,*args,**kwargs)

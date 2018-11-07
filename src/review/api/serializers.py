@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from review.models import Review
-from book.serializers import BookSerializer
+from book.serializers import BookListSerializer
 from book.models import Book
 from accounts.api.serializers import UserPublicSerializer
 class ReviewSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ReviewDetailSerializer(serializers.ModelSerializer):
 	user = UserPublicSerializer(read_only=True)
-	book = BookSerializer(read_only=True)
+	book = BookListSerializer(read_only=True)
 	
 	class Meta:
 		model = Review

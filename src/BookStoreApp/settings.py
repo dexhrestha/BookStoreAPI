@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'book',
     'accounts',
     'review',
+    'comment',
     # 'api',
     #cors
     'corsheaders',
