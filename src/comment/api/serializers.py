@@ -48,6 +48,7 @@ class CommentChildSerializer(serializers.ModelSerializer):
 class CommentDetailSerializer(serializers.ModelSerializer):
 	user = UserPublicSerializer(read_only=True)
 	reply_count = serializers.SerializerMethodField()
+	replies   = serializers.SerializerMethodField()
 	class Meta:
 		model = Comment
 		fields = ['id',
@@ -64,6 +65,12 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 		if obj.is_parent:
 			return obj.children().count()
 		return 0
+
+	def get_replies(self,obj):
+		if obj.is_parent:
+			return CommentChildSerializer(obj.children(),many=True).data
+		return None
+
 
 def createCommentSerializer(model_type=None,object_id=None,
 				# parent_id=None,
