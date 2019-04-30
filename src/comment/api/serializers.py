@@ -73,7 +73,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 
 
 def createCommentSerializer(model_type=None,object_id=None,
-				# parent_id=None,
+				parent_id=None,
 				user=None):
 	class CommentCreateSerializer(serializers.ModelSerializer):
 		user = UserPublicSerializer(read_only=True)
@@ -91,12 +91,12 @@ def createCommentSerializer(model_type=None,object_id=None,
 		def __init__(self,*args,**kwargs):
 			self.model_type = model_type
 			self.object_id = object_id
-			# self.parent_obj = parent #actual parent obj
+			self.parent_obj = None #actual parent obj not id
 			self.user = user
-			# if parent_id: #from func params
-			# 	parent_qs = Comment.objects.filter(id=parent_id)
-			# 	if parent_qs.exists() and parent_qs.count() == 1:
-			# 		self.parent_obj = parent_qs.first()
+			if parent_id: #from func params
+				parent_qs = Comment.objects.filter(id=parent_id)
+				if parent_qs.exists() and parent_qs.count() == 1:
+					self.parent_obj = parent_qs.first()
 			return super(CommentCreateSerializer,self).__init__(*args,**kwargs)
 		
 		def validate(self,data):

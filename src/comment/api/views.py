@@ -31,11 +31,11 @@ class CommentCreateAPIView(generics.CreateAPIView):
 	def get_serializer_class(self):
 		model_type = self.request.GET.get('type')
 		object_id = self.request.GET.get('id')
-		# parent_id = self.request.GET.get('parent_id',None)
+		parent_id = self.request.GET.get('parent_id',None)
 		return createCommentSerializer(
 			model_type=model_type,
 			object_id=object_id,
-			# parent_id=parent_id,
+			parent_id=parent_id,
 			user=self.request.user)
 
 class CommentEditAPIView(
